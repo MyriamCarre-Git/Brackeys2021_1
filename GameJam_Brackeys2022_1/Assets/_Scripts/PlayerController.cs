@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         if(currentCourage > 0 && !isCourageFilling)
         {
-            currentCourage -= 1 * Time.deltaTime;
+            currentCourage -= 0.5f * Time.deltaTime;
         }
     }
     
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentCourage < baseCourage)
         {
-            currentCourage += 1 * Time.deltaTime;
+            currentCourage += 2 * Time.deltaTime;
             isCourageFilling = true;
         }
     }
@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("LightCourage"))
         {
             isInLight = true;
-            //CourageFillCoroutine = StartCoroutine(CourageFill());
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

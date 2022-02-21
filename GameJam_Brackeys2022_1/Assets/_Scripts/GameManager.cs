@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject Player;
-    PlayerController player;
+    public PlayerController player;
     
 
     private void Awake()
