@@ -39,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG_Floor
+    uniqueID: 2239546029
+    locked: 0
+  - name: BG_Walls
+    uniqueID: 2027521325
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Glitch
+    uniqueID: 2437400103
     locked: 0
