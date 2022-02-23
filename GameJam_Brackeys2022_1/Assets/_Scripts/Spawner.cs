@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     float clampTime;
     public float minTime;
     public float maxTime;
+
     
 
     private bool isCoroutine = false;
@@ -24,10 +25,17 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        time = Random.Range(minTime * gameManager.player.currentCourage / 2 , maxTime * gameManager.player.currentCourage / 2);
-        clampTime = Mathf.Clamp(time, 0.25f, 1);
+        //time = Random.Range(minTime * gameManager.player.currentCourage / 2 , maxTime * gameManager.player.currentCourage / 2);
+        //clampTime = Mathf.Clamp(time, 1f, 2f);
+        time = Random.Range(minTime, maxTime);
 
-        Debug.Log(clampTime);
+        /*
+        if(gameManager.player.currentCourage <= 5)
+        {
+            minTime = minTime + (1 * Time.deltaTime);
+            maxTime = maxTime + (1 * Time.deltaTime);
+        }
+        */
 
         if (!isCoroutine && gameManager.player.currentCourage <= 12)
         {
@@ -38,9 +46,9 @@ public class Spawner : MonoBehaviour
     IEnumerator Spawn()
     {
         isCoroutine = true;
-        yield return new WaitForSeconds(clampTime);
-
         Instantiate(NotRealMonsterPrefab, GeneratePosition(), Quaternion.identity);
+        yield return new WaitForSeconds(time);
+
         isCoroutine = false;
     }
 

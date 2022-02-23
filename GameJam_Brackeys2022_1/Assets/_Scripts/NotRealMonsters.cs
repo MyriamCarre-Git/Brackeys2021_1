@@ -10,6 +10,7 @@ public class NotRealMonsters : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float speedExtra = 1f;
 
+
     Vector2 position;
     Rigidbody2D rb;
 
@@ -24,6 +25,7 @@ public class NotRealMonsters : MonoBehaviour
     private void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, gameManager.player.transform.position, currentSpeed * Time.deltaTime);
+        FacingDirection();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,5 +50,13 @@ public class NotRealMonsters : MonoBehaviour
         {
             currentSpeed = speed;
         }
+    }
+
+    private void FacingDirection()
+    {
+        Vector3 targetDirection = gameManager.player.transform.position - transform.position;
+
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, gameManager.player.rotationSpeed * Time.deltaTime);
     }
 }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float currentSpeed;
     [SerializeField] private float minimumSpeed;
-    [SerializeField] float rotationSpeed;
+    public float rotationSpeed;
 
     Vector2 axisInput;
     public bool isCourageFilling = false;
@@ -20,13 +20,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject GameManager;
     GameManager gameManager;
     Rigidbody2D rb;
-    //Animator anim;
+    Animator anim;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameManager.GetComponent<GameManager>();
+        anim = GetComponent<Animator>();
 
         currentSpeed = moveSpeed;
         currentCourage = baseCourage;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
         CourageDepletion();
         Vitesse();
         FacingDirection();
+        AnimationController();
 
         if (isInLight)
         {
@@ -102,6 +104,18 @@ public class PlayerController : MonoBehaviour
             isCourageFilling = false;
             isInLight = false;
             
+        }
+    }
+
+    private void AnimationController()
+    {
+        if(axisInput != Vector2.zero)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
         }
     }
 }
