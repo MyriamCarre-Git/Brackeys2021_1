@@ -5,6 +5,7 @@ using UnityEngine;
 public class Monstre : MonoBehaviour
 {
     [HideInInspector] public Transform player;
+    [HideInInspector] public Vector2 originalPos;
 
     public float timeBetweenAttacks;
     public float moveSpeed;
@@ -15,6 +16,7 @@ public class Monstre : MonoBehaviour
     [SerializeField] private float stopDistance;
     [SerializeField] private float attackSpeed;
     private float attackTime;
+    [SerializeField] private bool isInLight = false;
 
 
     private bool canAttack => Vector2.Distance(transform.position, player.position) < stopDistance;
@@ -24,12 +26,21 @@ public class Monstre : MonoBehaviour
 
     private void Start()
     {
+        originalPos = transform.position;
+        Debug.Log(originalPos);
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
     {
         ChasePlayer();
+
+        if (isInLight)
+        {
+            //trigger particule ensuite
+            transform.position = originalPos;
+            Debug.Log(originalPos);
+        }
     }
 
     private void ChasePlayer()
@@ -73,4 +84,24 @@ public class Monstre : MonoBehaviour
             yield return null;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("LightCourage"))
+        {
+            isInLight = true;
+            //trigger particule ensuite
+            transform.position = originalPos;
+            Debug.Log(originalPos);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("LightCourage"))
+        {
+            isInLight = false;
+        }
+    }
+
+
 }

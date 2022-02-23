@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5627667819182728872}
   - component: {fileID: 5627667819182728878}
   - component: {fileID: 5627667819182728877}
+  - component: {fileID: 6435380128239985872}
   m_Layer: 0
   m_Name: Monstre
   m_TagString: Untagged
@@ -99,13 +100,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  originalPos: {x: 0, y: 0}
   timeBetweenAttacks: 2
-  moveSpeed: 1
+  moveSpeed: 0.25
   chasingSpeed: 2
   enemyDamage: 0
-  chaseDistance: 8
-  stopDistance: 2
-  attackSpeed: 6
+  chaseDistance: 5
+  stopDistance: 1
+  attackSpeed: 8
 --- !u!60 &5627667819182728877
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -135,3 +137,19 @@ PolygonCollider2D:
       - {x: -0.5, y: 0}
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
+--- !u!58 &6435380128239985872
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627667819182728873}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.22

@@ -79,7 +79,10 @@ public class PlayerController : MonoBehaviour
 
     private void Vitesse()
     {
-        currentSpeed = Mathf.Clamp(currentCourage * 15, minimumSpeed, moveSpeed);
+        float couragePercentage = currentCourage / baseCourage;
+        float courageSpeed = couragePercentage * moveSpeed;
+
+        currentSpeed = Mathf.Clamp(courageSpeed , minimumSpeed, moveSpeed);
     }
     private void FacingDirection()
     {
@@ -109,13 +112,19 @@ public class PlayerController : MonoBehaviour
 
     private void AnimationController()
     {
+        float animationSpeed = currentSpeed / moveSpeed;
+
         if(axisInput != Vector2.zero)
         {
             anim.SetBool("isWalking", true);
+            anim.speed = animationSpeed;
         }
         else
         {
-            anim.SetBool("isWalking", false);
+            //anim.SetBool("isWalking", false);
+            anim.SetBool("isWalking", true);
+            anim.speed = 0;
+
         }
     }
 }
