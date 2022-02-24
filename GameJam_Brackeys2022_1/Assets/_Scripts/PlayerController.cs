@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player")]
     public float baseCourage;
     public float currentCourage;
+    public float currentHealth;
+    public float health;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float currentSpeed;
     [SerializeField] private float minimumSpeed;
@@ -31,13 +33,13 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = moveSpeed;
         currentCourage = baseCourage;
-
-       
+        currentHealth = health;
     }
 
     void Update()
     {
         axisInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
         CourageDepletion();
         Vitesse();
         FacingDirection();
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = Mathf.Clamp(courageSpeed , minimumSpeed, moveSpeed);
     }
+
     private void FacingDirection()
     {
         if (axisInput != Vector2.zero)
@@ -126,5 +129,26 @@ public class PlayerController : MonoBehaviour
             anim.speed = 0;
 
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+
+        if (currentHealth > 0)
+        {
+            currentHealth = currentHealth - damage;
+        }
+        else
+        {
+            //jous l'anim de mort
+        }
+        
+    }
+
+    public void ResetPlayer()
+    {
+        currentCourage = baseCourage;
+        currentHealth = health;
+        currentSpeed = moveSpeed;
     }
 }

@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5627667819182728879}
+  - component: {fileID: 18879148109979580}
   - component: {fileID: 5627667819182728872}
   - component: {fileID: 5627667819182728878}
-  - component: {fileID: 5627667819182728877}
-  - component: {fileID: 6435380128239985872}
+  - component: {fileID: 5834388909049482585}
+  - component: {fileID: 1458437473265015476}
+  - component: {fileID: 1673793478917937929}
   m_Layer: 0
   m_Name: Monstre
   m_TagString: Untagged
@@ -29,11 +31,32 @@ Transform:
   m_GameObject: {fileID: 5627667819182728873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.84, y: 6.76, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &18879148109979580
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627667819182728873}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!212 &5627667819182728872
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -75,7 +98,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 197e9cb733219fd4cb11ac04fefc3c06,
+  m_Sprite: {fileID: 7216824203189543001, guid: 4d654ee037d873d48a207fceadc45350,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,12 +127,31 @@ MonoBehaviour:
   timeBetweenAttacks: 2
   moveSpeed: 0.25
   chasingSpeed: 2
-  enemyDamage: 0
+  enemyDamage: 1
   chaseDistance: 5
-  stopDistance: 1
+  stopDistance: 2
   attackSpeed: 8
---- !u!60 &5627667819182728877
-PolygonCollider2D:
+--- !u!95 &5834388909049482585
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627667819182728873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a4a35f8ea89d3048905635858c57a58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &1458437473265015476
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -121,23 +163,10 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
-    newSize: {x: 1, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.25}
-      - {x: -0.5, y: 0}
-      - {x: 0, y: -0.25}
-      - {x: 0.5, y: 0}
---- !u!58 &6435380128239985872
+  m_Offset: {x: 0.04967904, y: 0.27442044}
+  m_Size: {x: 1.1684966, y: 2.5044277}
+  m_Direction: 0
+--- !u!58 &1673793478917937929
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,6 +179,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04, y: 0.42}
   serializedVersion: 2
-  m_Radius: 0.22
+  m_Radius: 0.39

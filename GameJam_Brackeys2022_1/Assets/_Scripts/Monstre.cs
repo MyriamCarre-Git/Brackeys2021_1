@@ -16,16 +16,20 @@ public class Monstre : MonoBehaviour
     [SerializeField] private float stopDistance;
     [SerializeField] private float attackSpeed;
     private float attackTime;
-    [SerializeField] private bool isInLight = false;
 
 
     private bool canAttack => Vector2.Distance(transform.position, player.position) < stopDistance;
     private bool isCloseToPlayer => Vector2.Distance(transform.position, player.position) < chaseDistance;
-    //private bool willAttack => canAttack && isCloseToPlayer;
+    private bool isMoving = false;
 
+
+    GameManager gameManager;
+    Animator anim;
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        anim = GetComponent<Animator>();
         originalPos = transform.position;
         Debug.Log(originalPos);
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -34,24 +38,23 @@ public class Monstre : MonoBehaviour
     private void Update()
     {
         ChasePlayer();
-
-        if (isInLight)
-        {
-            //trigger particule ensuite
-            transform.position = originalPos;
-            Debug.Log(originalPos);
-        }
+        FacingDirection();
     }
 
     private void ChasePlayer()
     {
         if (player != null) //check if dead
         {
-            if (isCloseToPlayer)
+            if (!canAttack && isCloseToPlayer)
             {
+                isMoving = true;
                 transform.position = Vector2.MoveTowards(transform.position, player.position, chasingSpeed * Time.deltaTime);
+            }
+            else if (isCloseToPlayer)
+            {
                 if (canAttack)
                 {
+                    isMoving = false;
                     AttackPlayer();
                 }
             }
@@ -69,7 +72,7 @@ public class Monstre : MonoBehaviour
 
     IEnumerator Attack()
     {
-        //player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
+        player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
 
         Vector2 originalPos = transform.position;
         Vector2 targetPos = player.transform.position;
@@ -89,19 +92,30 @@ public class Monstre : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LightCourage"))
         {
-            isInLight = true;
             //trigger particule ensuite
             transform.position = originalPos;
             Debug.Log(originalPos);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    private void FacingDirection()
     {
-        if (collision.gameObject.CompareTag("LightCourage"))
-        {
-            isInLight = false;
-        }
+        Vector3 targetDirection = gameManager.player.transform.position - transform.position;
+
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, gameManager.player.rotationSpeed * Time.deltaTime);
     }
 
+    private void AnimationController()
+    {
+        if (isMoving)
+        {
+            anim.speed = 1;
+        }
+        else
+        {
+            anim.speed = 0;
 
+        }
+    }
 }

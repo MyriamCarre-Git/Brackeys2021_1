@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject Player;
     public PlayerController player;
+
+    public bool gotKey;
     
 
     private void Awake()
@@ -14,8 +16,9 @@ public class GameManager : MonoBehaviour
         player = Player.GetComponent<PlayerController>();
     }
 
-    private void Update()
+    private void Start()
     {
+        gotKey = false;
     }
 
    

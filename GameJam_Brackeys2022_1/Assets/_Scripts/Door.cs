@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadNextLevel : MonoBehaviour
+public class Door : MonoBehaviour
 {
     [SerializeField] int sceneNumber;
+    [SerializeField] bool isFirstTime;
+
     [SerializeField] GameObject CourageAndHealth;
     Courage_Health courageAndHealth;
     [SerializeField] GameObject GameManager;
     GameManager gameManager;
+    
 
     private void Start()
     {
@@ -21,9 +24,18 @@ public class LoadNextLevel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            courageAndHealth.courageOnLastLevel = gameManager.player.currentCourage;
-            courageAndHealth.healthOnLastLevel = gameManager.player.currentHealth;
-            SceneManager.LoadScene(sceneNumber);
+            if (gameManager.gotKey)
+            {
+                courageAndHealth.courageOnLastLevel = gameManager.player.currentCourage;
+                courageAndHealth.healthOnLastLevel = gameManager.player.currentHealth;
+                SceneManager.LoadScene(sceneNumber);
+            }
+            else if (isFirstTime)
+            {
+                Debug.Log("Need the key");
+            }
         }
     }
+
+
 }
