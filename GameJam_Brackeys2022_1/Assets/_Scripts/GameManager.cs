@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject Player;
     public PlayerController player;
 
-    public bool gotKey;
+    public bool gotKey = false;
+    public bool isSafe = false;
+    public bool isEnding = false;
     
 
     private void Awake()

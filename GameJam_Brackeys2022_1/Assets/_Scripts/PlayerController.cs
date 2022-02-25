@@ -40,7 +40,11 @@ public class PlayerController : MonoBehaviour
     {
         axisInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        CourageDepletion();
+        if (!gameManager.isSafe)
+        {
+            CourageDepletion();
+        }
+        
         Vitesse();
         FacingDirection();
         AnimationController();
