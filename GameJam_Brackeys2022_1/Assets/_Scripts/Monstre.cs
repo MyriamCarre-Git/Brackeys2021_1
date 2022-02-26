@@ -7,6 +7,7 @@ public class Monstre : MonoBehaviour
     [HideInInspector] public Transform player;
     [HideInInspector] public Vector2 originalPos;
 
+
     public float timeBetweenAttacks;
     public float moveSpeed;
     public float chasingSpeed;
@@ -16,10 +17,14 @@ public class Monstre : MonoBehaviour
     [SerializeField] private float stopDistance;
     [SerializeField] private float attackSpeed;
     private float attackTime;
-
+   
 
     private bool canAttack => Vector2.Distance(transform.position, player.position) < stopDistance;
     private bool isCloseToPlayer => Vector2.Distance(transform.position, player.position) < chaseDistance;
+    private bool playerisLowSanity =>
+       player.GetComponent<PlayerController>().currentCourage < player.GetComponent<PlayerController>().baseCourage / 4;
+    private bool playerisLowHealth =>
+        player.GetComponent<PlayerController>().currentHealth < player.GetComponent<PlayerController>().health / 4;
     private bool isMoving = false;
 
 
@@ -31,7 +36,6 @@ public class Monstre : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         anim = GetComponent<Animator>();
         originalPos = transform.position;
-        Debug.Log(originalPos);
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -72,7 +76,17 @@ public class Monstre : MonoBehaviour
 
     IEnumerator Attack()
     {
-        player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
+        
+        if(playerisLowSanity && !playerisLowHealth)
+        {
+            player.GetComponent<PlayerController>().TakeDamage(enemyDamage + 1);
+        }
+        else
+        {
+            player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
+        } 
+        
+        //player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
 
         Vector2 originalPos = transform.position;
         Vector2 targetPos = player.transform.position;

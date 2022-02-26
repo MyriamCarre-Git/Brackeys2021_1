@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,20 +21,29 @@ public class PlayerController : MonoBehaviour
 
     [Header("Références")]
     [SerializeField] GameObject GameManager;
+
+    [SerializeField] GameObject HealthBar;
+    [SerializeField] GameObject CourageBar;
+    [HideInInspector] public BarScript healthBar;
+    [HideInInspector] public BarScript courageBar;
+
     GameManager gameManager;
     Rigidbody2D rb;
     Animator anim;
-
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameManager.GetComponent<GameManager>();
         anim = GetComponent<Animator>();
+        healthBar = HealthBar.GetComponent<BarScript>();
+        courageBar = CourageBar.GetComponent<BarScript>();
 
-        currentSpeed = moveSpeed;
-        currentCourage = baseCourage;
-        currentHealth = health;
+        StartPlayer();
+        Debug.Log("Health: " + currentHealth + "Courage: " + currentCourage);
+        //currentSpeed = moveSpeed;
+        //currentCourage = baseCourage;
+        //currentHealth = health;
     }
 
     void Update()
@@ -53,6 +63,8 @@ public class PlayerController : MonoBehaviour
         {
             CourageFill();
         }
+        courageBar.SliderValue(currentCourage);
+        healthBar.SliderValue(currentHealth);
     }
 
     private void FixedUpdate()
@@ -145,14 +157,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             //jous l'anim de mort
+            SceneManager.LoadScene("GameOver");
         }
-        
     }
 
-    public void ResetPlayer()
+    public void StartPlayer()
     {
-        currentCourage = baseCourage;
-        currentHealth = health;
-        currentSpeed = moveSpeed;
+        currentCourage = gameManager.courageHealth.courageOnLastLevel;
+        currentHealth = gameManager.courageHealth.healthOnLastLevel;
+        healthBar.SetMaxValue(health);
+        courageBar.SetMaxValue(baseCourage);
+        //currentCourage = baseCourage;
+        //currentHealth = health;
+        //currentSpeed = moveSpeed;
     }
 }
