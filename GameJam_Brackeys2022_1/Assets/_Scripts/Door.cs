@@ -12,7 +12,10 @@ public class Door : MonoBehaviour
     Courage_Health courageAndHealth;
     [SerializeField] GameObject GameManager;
     GameManager gameManager;
-    
+    [SerializeField] GameObject textTrigger;
+    [SerializeField] Animator anim;
+
+    private bool isPressed = false;
 
     private void Start()
     {
@@ -20,22 +23,47 @@ public class Door : MonoBehaviour
         gameManager = GameManager.GetComponent<GameManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (gameManager.gotKey)
+            anim.SetBool("isInTrigger", true);
+
+            if (Input.GetAxis("Submit") == 1 || Input.GetMouseButton(1))
             {
-                courageAndHealth.courageOnLastLevel = gameManager.player.currentCourage;
-                courageAndHealth.healthOnLastLevel = gameManager.player.currentHealth;
-                SceneManager.LoadScene(sceneNumber);
+                Debug.Log("button pressed");
+                if (!isPressed)
+                {
+                    if (gameManager.gotKey)
+                    {
+                        courageAndHealth.courageOnLastLevel = gameManager.player.currentCourage;
+                        courageAndHealth.healthOnLastLevel = gameManager.player.currentHealth;
+                        SceneManager.LoadScene(sceneNumber);
+                    }
+                    else
+                    {
+                        textTrigger.GetComponent<TextTrigger>().TriggerDialogue();
+                        Debug.Log("Debug: Need the key");
+                        isPressed = true;
+                    }
+                }
+                
             }
-            else if (isFirstTime)
+            else if(Input.GetAxis("Submit") == 0)
             {
-                Debug.Log("Need the key");
+                isPressed = false;
             }
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            anim.SetBool("isInTrigger", false);
+        }
+    }
+
 
 
 }

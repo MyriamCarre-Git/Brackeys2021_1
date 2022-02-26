@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         courageBar = CourageBar.GetComponent<BarScript>();
 
         StartPlayer();
-        Debug.Log("Health: " + currentHealth + "Courage: " + currentCourage);
+        
         //currentSpeed = moveSpeed;
         //currentCourage = baseCourage;
         //currentHealth = health;
