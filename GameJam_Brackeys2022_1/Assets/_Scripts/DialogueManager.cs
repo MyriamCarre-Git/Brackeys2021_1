@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     //public Text text;
     public TextMeshProUGUI text;
     [SerializeField] Animator anim;
+    [SerializeField]  GameObject MenuBox;
     UI_MenuBox menuBox;
 
     private Queue<string> sentences;
@@ -16,17 +17,17 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        menuBox = GetComponent<UI_MenuBox>();
+        menuBox = MenuBox.GetComponent<UI_MenuBox>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        Debug.Log(dialogue);
+        //Debug.Log(dialogue);
 
         sentences.Clear();
 
         anim.SetBool("IsOpen", true);
-        //menuBox.isOpen = true;
+        menuBox.isOpen = true;
 
         foreach (string sentence in dialogue.sentences)
         {
@@ -53,6 +54,6 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of diaogue");
         anim.SetBool("IsOpen", false);
-        //menuBox.isOpen = false;
+        menuBox.isOpen = false;
     }
 }

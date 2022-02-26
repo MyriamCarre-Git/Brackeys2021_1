@@ -24,7 +24,7 @@ public class PressToContinue : MonoBehaviour
         courageHealth.courageOnLastLevel = player.baseCourage;
         courageHealth.healthOnLastLevel = player.health;
 
-        if (Input.GetAxis("Sumbit") == 1 || Input.GetMouseButtonDown(1))
+        if (Input.GetAxis("Submit") == 1 || Input.GetMouseButton(1))
         {
             SceneManager.LoadScene(sceneNumber);
         }

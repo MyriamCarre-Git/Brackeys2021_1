@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
     [SerializeField] GameObject textTrigger;
     [SerializeField] Animator anim;
 
-    private bool isPressed = false;
+    [SerializeField] private bool isPressed = false;
 
     private void Start()
     {
