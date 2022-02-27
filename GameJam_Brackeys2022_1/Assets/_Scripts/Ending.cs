@@ -7,18 +7,37 @@ public class Ending : MonoBehaviour
 {
     GameManager gameManager;
 
+    [SerializeField] Animator highlightBed;
+
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();    
     }
 
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameManager.isEnding = true;
-        //SceneManager.LoadScene(6);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            highlightBed.SetBool("isInTrigger", true);
+            SceneManager.LoadScene("_WIN");
+            /*
+            if (Input.GetAxis("Submit") == 1 || Input.GetMouseButton(1))
+            {
+                Debug.Log("fjdksla");
+                SceneManager.LoadScene("_WIN");
+                gameManager.isEnding = true;
+            }*/
+        }
+    }
 
-        Debug.Log("Ending");
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            highlightBed.SetBool("isInTrigger", false);
+        }
     }
 }
