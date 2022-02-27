@@ -142,8 +142,8 @@ public class PlayerController : MonoBehaviour
         {
             //anim.SetBool("isWalking", false);
             anim.SetBool("isWalking", true);
+            
             anim.speed = 0;
-
         }
     }
 
@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth > 0)
         {
+            anim.SetTrigger("isHit");
             currentHealth = currentHealth - damage;
         }
         else

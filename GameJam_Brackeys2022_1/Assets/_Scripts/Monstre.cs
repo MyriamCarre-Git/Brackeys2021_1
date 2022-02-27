@@ -17,6 +17,8 @@ public class Monstre : MonoBehaviour
     [SerializeField] private float stopDistance;
     [SerializeField] private float attackSpeed;
     private float attackTime;
+
+    [SerializeField] AudioSource audioSource;
    
 
     private bool canAttack => Vector2.Distance(transform.position, player.position) < stopDistance;
@@ -80,10 +82,12 @@ public class Monstre : MonoBehaviour
         if(playerisLowSanity && !playerisLowHealth)
         {
             player.GetComponent<PlayerController>().TakeDamage(enemyDamage + 1);
+            audioSource.Play();
         }
         else
         {
             player.GetComponent<PlayerController>().TakeDamage(enemyDamage);
+            audioSource.Play();
         } 
         
         //player.GetComponent<PlayerController>().TakeDamage(enemyDamage);

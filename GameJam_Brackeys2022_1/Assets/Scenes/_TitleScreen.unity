@@ -823,6 +823,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6456314296585739889, guid: cce5bb36a0531274bbb8aa52578aef9c,
         type: 3}
+      propertyPath: m_text
+      value: P r e s s   S P A C E   T o   C o n t i n u e
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456314296585739889, guid: cce5bb36a0531274bbb8aa52578aef9c,
+        type: 3}
       propertyPath: m_fontSize
       value: 20
       objectReference: {fileID: 0}
