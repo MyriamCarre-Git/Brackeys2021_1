@@ -22,7 +22,7 @@ public class Monstre : MonoBehaviour
     private bool canAttack => Vector2.Distance(transform.position, player.position) < stopDistance;
     private bool isCloseToPlayer => Vector2.Distance(transform.position, player.position) < chaseDistance;
     private bool playerisLowSanity =>
-       player.GetComponent<PlayerController>().currentCourage < player.GetComponent<PlayerController>().baseCourage / 4;
+       player.GetComponent<PlayerController>().currentCourage < player.GetComponent<PlayerController>().baseCourage / 2;
     private bool playerisLowHealth =>
         player.GetComponent<PlayerController>().currentHealth < player.GetComponent<PlayerController>().health / 4;
     private bool isMoving = false;

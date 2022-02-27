@@ -7,11 +7,15 @@ public class Key : MonoBehaviour
     GameManager gameManager;
     [SerializeField] float chaseDistance = 2;
     [SerializeField] float speed = 2f;
+
+   [SerializeField] AudioSource audioSource;
+
     private bool isCloseToPlayer => Vector2.Distance(transform.position, gameManager.player.transform.position) < chaseDistance;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        
     }
 
     private void Update()
@@ -26,9 +30,10 @@ public class Key : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            audioSource.Play();
             Debug.Log("Got key");
             gameManager.gotKey = true;
-            Destroy(gameObject);
+            Destroy(gameObject, 0.1f);
         }
     }
 }

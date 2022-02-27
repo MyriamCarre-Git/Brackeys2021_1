@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     sentences:
-    - Need to find a key
+    - I need to find the key...

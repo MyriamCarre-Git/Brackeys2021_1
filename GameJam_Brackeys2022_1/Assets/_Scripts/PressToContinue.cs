@@ -9,6 +9,7 @@ public class PressToContinue : MonoBehaviour
     Courage_Health courageHealth;
     [SerializeField] GameObject Player;
     PlayerController player;
+    private bool isWaiting = true;
 
     [SerializeField] int sceneNumber;
 
@@ -16,7 +17,7 @@ public class PressToContinue : MonoBehaviour
     {
         courageHealth = CourageHealth.GetComponent<Courage_Health>();
         player = Player.GetComponent<PlayerController>();
-
+        StartCoroutine(Wait());
     }
 
     void Update()
@@ -24,9 +25,18 @@ public class PressToContinue : MonoBehaviour
         courageHealth.courageOnLastLevel = player.baseCourage;
         courageHealth.healthOnLastLevel = player.health;
 
-        if (Input.GetAxis("Submit") == 1 || Input.GetMouseButton(1))
+        if (!isWaiting)
         {
-            SceneManager.LoadScene(sceneNumber);
+            if (Input.GetAxis("Submit") == 1 || Input.GetMouseButton(1))
+            {
+                SceneManager.LoadScene(sceneNumber);
+            }
         }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isWaiting = false;
     }
 }

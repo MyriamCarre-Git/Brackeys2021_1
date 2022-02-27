@@ -10,6 +10,8 @@ public class NotRealMonsters : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float speedExtra = 1f;
 
+    //[SerializeField] AudioSource audioSource;
+    //[SerializeField] AudioClip newClip;
 
     Vector2 position;
     Rigidbody2D rb;
